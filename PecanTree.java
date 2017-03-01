@@ -3,6 +3,10 @@
 public class PecanTree{
 	public Branch bareRoot; //Root of tree, main parent
 
+	public PecanTree(){
+		//Does nothing... 
+	}
+
 	public void bud(Double value){ //adds a pecan bud to tree (value)
 		if(isBranchEmpty(bareRoot))
 			bareRoot = new Branch(value);
@@ -22,6 +26,31 @@ public class PecanTree{
 			return addBranch(val, currentBranch.getRight());
 		}
 	} 
+
+	public Double getMin(){
+		return getMin(bareRoot);
+	}
+
+	private Double getMin(Branch currentBranch){
+		if( currentBranch.getLeft() == null){
+			return currentBranch.getVal();
+		} else {
+			return currentBranch.getLeft();
+		}
+	}
+
+	public Double getMax(){
+		return getMin(bareRoot);
+	}
+
+	private Double getMax(Branch currentBranch){
+		if( currentBranch.getRight() == null){
+			return currentBranch.getVal();
+		} else {
+			return currentBranch.getRight();
+		}
+	}
+
 
 	private boolean isBranchEmpty( Branch emptyBranch){ //Returns if the bareRoot is empty
 		return bareRoot == null;
