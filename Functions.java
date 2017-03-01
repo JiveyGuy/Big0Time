@@ -1,7 +1,7 @@
 public class Functions{
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
-	public int funcOne(int a[])
+	public static void funcOne(int a[])
 	{
 		if(DEBUG){System.out.println("funcOne Called for array length: " + a.length);}
 		int n = a.length;
@@ -20,10 +20,9 @@ public class Functions{
         		maxSum = sum;
     		}
    		}
-    return maxSum;
-	}
+   	}
 
-	public int funcTwo(int a[])
+	public static void funcTwo(int a[])
 	{
 		if(DEBUG){System.out.println("funcTwo Called for array length: " + a.length);}
 		int n = a.length;
@@ -39,9 +38,8 @@ public class Functions{
                 maxSum = sum; 
         	}
     	}
-    	return maxSum;
 	}
-	public int funcThree(int a[])
+	public static void funcThree(int a[])
 	{
 		if(DEBUG){System.out.println("funcThree Called for array length: " + a.length);}
 		int n = a.length;
@@ -55,7 +53,6 @@ public class Functions{
      		else if(sum > maxSum)
         		maxSum = sum;
    		}
-   		return maxSum;
 	}
 
 }
