@@ -13,7 +13,7 @@ public class Timer{
 	}
 
 	public Double getTime(){
-		double currentTime = start - System.currentTimeMillis();
+		double currentTime = System.currentTimeMillis() - start;
 		if(DEBUG){System.out.println("Time returned = " + currentTime);}
 		return currentTime;
 	}

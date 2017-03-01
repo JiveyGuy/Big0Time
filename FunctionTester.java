@@ -16,6 +16,7 @@ public class FunctionTester{
 
 		int size      = Integer.parseInt(args[0]); //Size of array
 		int tests     = Integer.parseInt(args[1]); //# of tests to run
+		int rate      = 2;
 
 		int[] array   = randomGen(size); //Makes array
 
@@ -25,22 +26,29 @@ public class FunctionTester{
 		time[0] = new Double(0.0);
 		time[1] = new Double(0.0);
 		time[2] = new Double(0.0); //Our time holders to sum time
+		for(int testsCompleted = 0; testsCompleted < 10; testsCompleted++){
+			for(int iterations = 0; iterations < size; iterations++){
+				timer.setTime();
+				Functions.funcOne(array);
+				time[0] += timer.getTime();
 
-		for(int iterations = 0; iterations < size; iterations++){
-			timer.setTime();
-			Functions.funcOne(array);
-			time[0] += timer.getTime();
+				timer.setTime();
+				Functions.funcTwo(array);
+				time[1] += timer.getTime();
 
-			timer.setTime();
-			Functions.funcTwo(array);
-			time[1] += timer.getTime();
+				timer.setTime();
+				Functions.funcThree(array);
+				time[2] += timer.getTime();
 
-			timer.setTime();
-			Functions.funcThree(array);
-			time[2] += timer.getTime();
+			} 
+			System.out.println( "Test " + ( testsCompleted + 1 ) + " completed,"+
+				"For dataset size = " + size);
+			for(Double iterator : time ){
+				System.out.println( "Value: " + iterator );
+			} System.out.println(); //Clearing a line
 
-		} for(Double iterator : time ){
-			System.out.println( iterator / size );
+			size = size * rate; //Increasing by the rate
+			array = randomGen(size); //New array huray! 
 		}
 	}
 
