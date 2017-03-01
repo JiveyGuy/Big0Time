@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class FunctionTester{
 
-	public static final boolean DEBUG = false;	
+	public static final boolean DEBUG = true;	
 	public static void main(String args[]){
 
 		if (DEBUG) System.out.println("Called for:  " + args[0] + " : " + args[1]);
@@ -47,15 +47,21 @@ public class FunctionTester{
 
 				timer.setTime();
 				Functions.funcThree(array);
-				kTree.bud(timer.getTime(););
+				kTree.bud(timer.getTime());
 
 			} 
-			Double values[][] = new Doble[3][3];
+			Double values[][] = new Double[3][3];
 
 			values[0] = populateValues(bruteTree);
 			values[1] = populateValues(quadTree);
 			values[2] = populateValues(kTree);
-
+			System.out.println("For dataset size = " + size + " and number of tests " + tests);
+			for(int x = 0; x < values.length; x++){
+				System.out.print("Values["+x+"] = ");
+				for (int y = 0; y < values[x].length; y++){
+					System.out.print("["+y+"] = " + values[x][y]);
+				} System.out.println(); //Clearing a line
+			}
 			size = size * rate; //Increasing by the rate
 			array = randomGen(size); //New array huray! 
 		}
@@ -66,8 +72,9 @@ public class FunctionTester{
 
 		values[0] = pecanTree.getMin();
 		values[1] = pecanTree.getAverage();
-		values[2] = pecanTree.getMax());
+		values[2] = pecanTree.getMax();
 		
+		return values;
 	}
 
 	public static int[] randomGen(int size){

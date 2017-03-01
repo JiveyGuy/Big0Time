@@ -35,22 +35,46 @@ public class PecanTree{
 		if( currentBranch.getLeft() == null){
 			return currentBranch.getVal();
 		} else {
-			return currentBranch.getLeft();
+			return getMin(currentBranch.getLeft());
 		}
 	}
 
 	public Double getMax(){
-		return getMin(bareRoot);
+		return getMax(bareRoot);
 	}
 
 	private Double getMax(Branch currentBranch){
 		if( currentBranch.getRight() == null){
 			return currentBranch.getVal();
 		} else {
-			return currentBranch.getRight();
+			return getMax(currentBranch.getRight());
 		}
 	}
 
+
+	public Double getAverage(){
+		return getSum(bareRoot) / numberOfBranches(bareRoot);
+	}
+
+	private Double getSum(Branch currentBranch){
+		if ( currentBranch.getLeft() != null) {
+			return currentBranch.getVal() + numberOfBranches(currentBranch.getLeft());
+		} if ( currentBranch.getRight() != null ){
+			return currentBranch.getVal() + numberOfBranches(currentBranch.getRight());
+		}
+
+		else return currentBranch.getVal();
+	}
+
+	private int numberOfBranches(Branch currentBranch){
+		if ( currentBranch.getLeft() != null) {
+			return 1 + numberOfBranches(currentBranch.getLeft());
+		} if ( currentBranch.getRight() != null ){
+			return 1 + numberOfBranches(currentBranch.getRight());
+		} else {
+			 return 1;
+		}
+	}
 
 	private boolean isBranchEmpty( Branch emptyBranch){ //Returns if the bareRoot is empty
 		return bareRoot == null;
