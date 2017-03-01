@@ -6,7 +6,7 @@ public class Branch{
 
 	private Branch right;
 
-	public void Branch(Double value){
+	public Branch(Double value){
 		this.value = value;
 	}
 
@@ -18,11 +18,11 @@ public class Branch{
 		this.right = right;
 	}
 
-	public Leaf getLeft(Branch left){
+	public Branch getLeft(){
 		return this.left;
 	}
 
-	public Leaf getRight(Branch right){
+	public Branch getRight(){
 		return this.right;
 	}
 
