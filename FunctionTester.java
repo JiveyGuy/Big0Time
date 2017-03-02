@@ -67,9 +67,15 @@ public class FunctionTester{
     
     	}
 	
-	public void Print(int func, PriorityQueue<Double> input){
+	public void Print(int func, PriorityQueue<Double> input, int size){
 		Double[] array = input.toArray();
-		System.out.println(For func #" + func + " lowest = " + array[0] + " highest
+		System.out.print("For func #" + func + " lowest = " + array[0] + " highest = " + array[0]);
+		Double sum = 0;
+		for(Double iterator : array ){
+			sum += iterator;
+		} 
+		Double average = sum / array.length;
+		System.out.print(" Average = " + average + "\n");
 		
 	}
     
