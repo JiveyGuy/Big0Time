@@ -6,10 +6,11 @@
 */
 import java.util.Random;
 import java.util.PriorityQueue;
+import java.util.Arrays;
 
 public class FunctionTester{
 
-	public static final boolean DEBUG = true;	
+	public static final boolean DEBUG = false;	
 	public static void main(String args[]){
 
 		if (DEBUG) System.out.println("Called for:  " + args[0] + " : " + args[1]);
@@ -26,29 +27,45 @@ public class FunctionTester{
 
 		Timer timer   = new Timer();
 		Double time[] = new Double[3];
+		time[0] = new Double(0.0);
+		time[1] = new Double(0.0);
+		time[2] = new Double(0.0);
 
 
-		for(int testsCompleted = 0; testsCompleted < 10; testsCompleted++){
+		for(int testsCompleted = 0; testsCompleted < tests; testsCompleted++){
 
 	
 
-			for(int iterations = 0; iterations < size; iterations++){
+			for(int iterations = 0; iterations < 10; iterations++){
 			
 				timer.setTime();
-				Functions.funcOne();
-				brute.add(timer.getTime());
+				Functions.funcOne(array);
+				time[0] += timer.getTime();
 				
 				timer.setTime();
-				Functions.funcTwo();
-				quad.add(timer.getTime());
+				Functions.funcTwo(array);
+				time[1] += timer.getTime();
 				
 				timer.setTime();
-				Functions.funcThree();
-				kaine.add(timer.getTime());
+				Functions.funcThree(array);
+				time[2] += timer.getTime();
 
 			} 
 
-			
+			brute.add(time[0] / 10);
+			time[0] = 0.0;
+			quad.add(time[1] / 10);
+			time[1] = 0.0;
+			kaine.add(time[2] / 10);
+			time[2] = 0.0;
+
+			print(1, brute, size);
+			print(2, quad, size);
+			print(3, kaine, size);
+
+			brute.clear();
+			quad.clear();
+			kaine.clear();
 
 			size = size * rate; //Increasing by the rate
 			array = randomGen(size); //New array huray! 
@@ -66,20 +83,13 @@ public class FunctionTester{
      		 if (DEBUG) System.out.println("Random Loop " + iterations + " : " + result[iterations]);
     
     	}
+    	return result;
+    }
 	
-	public void Print(int func, PriorityQueue<Double> input, int size){
-		Double[] array = input.toArray();
-		System.out.print("For func #" + func + " lowest = " + array[0] + " highest = " + array[0]);
-		Double sum = 0;
-		for(Double iterator : array ){
-			sum += iterator;
-		} 
-		Double average = sum / array.length;
-		System.out.print(" Average = " + average + "\n");
-		
+	public static void print(int func, PriorityQueue<Double> input, int size){
+		Double[] array = new Double[size];
+		array = input.toArray(array);
+		Arrays.sort(array);
+		System.out.println(array[0] + " : " + array[array.length]);
 	}
-    
-    	return result; 
-  	}
-
 }
