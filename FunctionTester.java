@@ -22,22 +22,29 @@ public class FunctionTester{
 
 		int[] array   = randomGen(size); //Makes array
 
-		Timer timer   = new Timer();
-		Double data[][] = new Double[3][3];
+		Timer timer   = new Timer(); //Our timer object 
+		/* Data[0] = function One
+		 * Data[0][0] = is average time
+		 * Data[0][1] = is max time
+		 * Data[0][2] = is min time
+		 * Same for other functions just incrimenting first pointer
+		 */
+		Double data[][] = new Double[3][3]; 
 
 
-		Double temp = new Double(0.0);
+		Double temp = new Double(0.0); //Temp Double holder
 
 		for(int testsCompleted = 0; testsCompleted < tests; testsCompleted++){
 
 
-			for(int iterations = 0; iterations < 10; iterations++){
+			for(int iterations = 0; iterations < 10000; iterations++){
 
-				if(iterations == 0){
-					timer.setTime();
-					Functions.funcOne(array);
-					temp = timer.getTime();
-					data[0][0] = temp;
+				if(iterations == 0){ //If this is the first iteration
+
+					timer.setTime();//Setting timer's start to now
+					Functions.funcOne(array);//Running function one, or brute force
+					temp = timer.getTime(); //Setting temp to current time
+					data[0][0] = temp; //First run through, no comparison just init everything to temp
 					data[0][1] = temp;
 					data[0][2] = temp;
 
@@ -54,15 +61,16 @@ public class FunctionTester{
 					data[2][0] = temp;
 					data[2][1] = temp;
 					data[2][2] = temp;
-				} else {
 
-					timer.setTime();
-					Functions.funcOne(array);
-					temp = timer.getTime();
-					data[0][0] += temp;
-					if( data[0][1] < temp){
+				} else {//Other wise this is 1...10th execution
+
+					timer.setTime(); //Setting timer's time to now
+					Functions.funcOne(array);//Running brute force
+					temp = timer.getTime(); //Setting temp to ellapsed time since start
+					data[0][0] += temp;//Adding to average. will be divided by number of additions later to get true average
+					if( data[0][1] < temp){ //If max is less than temp, give max temp
 						data[0][1] = temp;
-					} else if ( data[0][2] > temp ){
+					} else if ( data[0][2] > temp ){ //If min is greater than temp, give min temp
 						data[0][2] = temp;
 					}
 
@@ -90,12 +98,12 @@ public class FunctionTester{
 
 			} 
 
-			data[0][0] = data[0][0] / 10.0;
-			data[1][0] = data[1][0] / 10.0;
-			data[2][0] = data[2][0] / 10.0;
+			data[0][0] = data[0][0] / 10000.0; //Dividing averages by iterations, to get true average
+			data[1][0] = data[1][0] / 10000.0;
+			data[2][0] = data[2][0] / 10000.0;
 
 			System.out.println("-----------------------------------------------");
-			print(1, data[0], size);
+			print(1, data[0], size); //Printing results of this test
 			print(2, data[1], size);
 			print(3, data[2], size);
 
@@ -112,12 +120,14 @@ public class FunctionTester{
     
     	for(int iterations = 0; iterations < size; iterations++){
       
-      		result[iterations] = rand.nextInt(500) + 1;
+      		result[iterations] = rand.nextInt(500) + 1; // returns randoms based 1 - 500
      	}
     	return result;
     }
 	
 	public static void print(int func, Double[] input, int size){
-		System.out.println("For function #"+func+": of size "+size+" avg = "+input[0]+" max = "+input[1]+" min = "+input[2]);
+		//Prints out data based on the meaning of each position in the array
+		System.out.println("For function #"+func+": of size "+size+" avg = "+input[0]+" max = "+input[1]+" min = "+input[2]); 
 	}
 }
+	
