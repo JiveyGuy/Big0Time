@@ -15,9 +15,6 @@ public class FunctionTester{
 
 		if (DEBUG) System.out.println("Called for:  " + args[0] + " : " + args[1]);
 		
-		PriorityQueue<Double> brute = new PriorityQueue<Double>();
-		PriorityQueue<Double> quad = new PriorityQueue<Double>();
-		PriorityQueue<Double> kaine = new PriorityQueue<Double>();
 		
 		int size      = Integer.parseInt(args[0]); //Size of array
 		int tests     = Integer.parseInt(args[1]); //# of tests to run
@@ -26,46 +23,82 @@ public class FunctionTester{
 		int[] array   = randomGen(size); //Makes array
 
 		Timer timer   = new Timer();
-		Double time[] = new Double[3];
-		time[0] = new Double(0.0);
-		time[1] = new Double(0.0);
-		time[2] = new Double(0.0);
+		Double data[][] = new Double[3][3];
 
+
+		Double temp = new Double(0.0);
 
 		for(int testsCompleted = 0; testsCompleted < tests; testsCompleted++){
 
-	
 
 			for(int iterations = 0; iterations < 10; iterations++){
-			
-				timer.setTime();
-				Functions.funcOne(array);
-				time[0] += timer.getTime();
-				
-				timer.setTime();
-				Functions.funcTwo(array);
-				time[1] += timer.getTime();
-				
-				timer.setTime();
-				Functions.funcThree(array);
-				time[2] += timer.getTime();
+
+				if(iterations == 0){
+					timer.setTime();
+					Functions.funcOne(array);
+					temp = timer.getTime();
+					data[0][0] = temp;
+					data[0][1] = temp;
+					data[0][2] = temp;
+
+					timer.setTime();
+					Functions.funcTwo(array);
+					temp = timer.getTime();
+					data[1][0] = temp;
+					data[1][1] = temp;
+					data[1][2] = temp;
+
+					timer.setTime();
+					Functions.funcThree(array);
+					temp = timer.getTime();
+					data[2][0] = temp;
+					data[2][1] = temp;
+					data[2][2] = temp;
+				} else {
+
+					timer.setTime();
+					Functions.funcOne(array);
+					temp = timer.getTime();
+					data[0][0] += temp;
+					if( data[0][1] < temp){
+						data[0][1] = temp;
+					} else if ( data[0][2] > temp ){
+						data[0][2] = temp;
+					}
+
+					timer.setTime();
+					Functions.funcTwo(array);
+					temp = timer.getTime();
+					data[1][0] += temp;
+					if( data[1][1] < temp){
+						data[1][1] = temp;
+					} else if ( data[1][2] > temp ){
+						data[1][2] = temp;
+					}
+
+					timer.setTime();
+					Functions.funcThree(array);
+					temp = timer.getTime();
+					data[2][0] += temp;
+					if( data[2][1] < temp){
+						data[2][1] = temp;
+					} else if ( data[2][2] > temp ){
+						data[2][2] = temp;
+					}
+
+				}
 
 			} 
 
-			brute.add(time[0] / 10);
-			time[0] = 0.0;
-			quad.add(time[1] / 10);
-			time[1] = 0.0;
-			kaine.add(time[2] / 10);
-			time[2] = 0.0;
+			data[0][0] = data[0][0] / 10.0;
+			data[1][0] = data[1][0] / 10.0;
+			data[2][0] = data[2][0] / 10.0;
 
-			print(1, brute, size);
-			print(2, quad, size);
-			print(3, kaine, size);
+			System.out.println("-----------------------------------------------");
+			print(1, data[0], size);
+			print(2, data[1], size);
+			print(3, data[2], size);
 
-			brute.clear();
-			quad.clear();
-			kaine.clear();
 
 			size = size * rate; //Increasing by the rate
 			array = randomGen(size); //New array huray! 
@@ -80,16 +113,11 @@ public class FunctionTester{
     	for(int iterations = 0; iterations < size; iterations++){
       
       		result[iterations] = rand.nextInt(500) + 1;
-     		 if (DEBUG) System.out.println("Random Loop " + iterations + " : " + result[iterations]);
-    
-    	}
+     	}
     	return result;
     }
 	
-	public static void print(int func, PriorityQueue<Double> input, int size){
-		Double[] array = new Double[size];
-		array = input.toArray(array);
-		Arrays.sort(array);
-		System.out.println(array[0] + " : " + array[array.length]);
+	public static void print(int func, Double[] input, int size){
+		System.out.println("For function #"+func+": of size "+size+" avg = "+input[0]+" max = "+input[1]+" min = "+input[2]);
 	}
 }
